@@ -1,0 +1,3 @@
+[submodule "lib/extern/nix-rootedoverlay"]
+	path = lib/extern/nix-rootedoverlay
+	url = https://github.com/deliciouslytyped/nix-rootedoverlay
