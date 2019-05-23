@@ -1,4 +1,5 @@
 #TODO It may be possible to use symlinkjoin to add plugins if you write the unwrapped launcher script to not use readlink
+#TODO separate out the gradle thing so we dont end up with dependency on this for plugins (?)
 
 # plugins is a list of derivations to symlink into <ghidraroot>/Ghidra/Extensions,
 # this is entirely sufficient for ghidra to operate.
@@ -55,7 +56,9 @@ in
       ${lib.concatMapStrings (l: jdkWrapper "${config.pkg_path}/${l}" "bin/${builtins.baseNameOf l}") config.launchers}
       ${lib.concatStrings (lib.mapAttrsToList writeCustomLauncher extraLaunchers)}
       # Install plugins
+      set -x
       ${lib.concatMapStrings (p: installPlugin (unpackPlugin p)) plugins}
+      set +x
       '';
 
     meta = with lib; {

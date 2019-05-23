@@ -1,5 +1,6 @@
 {scala, lib}:
   let
+    # nix-shell -p nix-prefetch-github --run "nix-prefetch-github edmcman ghidra-scala-loader > gotools.json
     src = lib.fetchGitHubJSON { JSONfile = ./json/ghidra-scala-loader.json; };
   in
   (lib.poorMkGradle "ghidra-scala-loader" src).overrideAttrs (a: {

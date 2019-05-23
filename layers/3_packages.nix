@@ -3,4 +3,5 @@
 # The plugin building code will check for files with .jar extensions, but not more than that.
 self: super: {
   ghidra-scala-loader = self.callPackage ./4_plugins/ghidra-scala-loader.nix { scala = self.nixpkgs.scala_2_11; };
-    }
+  gotools = self.callPackage ./4_plugins/gotools.nix {};
+  }
