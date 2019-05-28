@@ -11,6 +11,13 @@ self: super: {
       defaultOpts = import ../lib/defaultOpts.nix;
       };
 
+    #TODO move to lib
+    tracing = false;
+    trace = str: val:
+      if self.tracing then
+        self.nixpkgs.lib.traceValFn (v: "${str}\n${self.nixpkgs.lib.generators.toPretty {} v}") val
+      else
+        val;
 
     lib = {
       # nix-shell -p nix-prefetch-github --run "nix-prefetch-github owner repo > ./plugins/json/theplugin.json"
@@ -58,5 +65,4 @@ self: super: {
         '';
       };
 
-#    withPlugins = f: self.rootTree (self.ghidra.override { plugins = f self; });
     }

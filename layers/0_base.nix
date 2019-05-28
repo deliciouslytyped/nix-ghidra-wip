@@ -1,3 +1,6 @@
+#TODO WARNING NOTE THIS DOESNT GET CALLED SINCE THE TRANSITION TO THE ROOTEDOVERLAY LIB
+# SEE INSTEAD THE IMPLEMENTATION IN THE LIB
+
 {pkgs, lib}:
 extend': self: {
   # Don't pollute the namespace (for e.g. tab completion)
@@ -8,7 +11,7 @@ extend': self: {
   callPackage = lib.callPackageWith ( self.pkgs // self );
 
   #inherit extend; #TODO this feels kind of sketchy #TODO this feels SUPER sketchy
-  extend = a: self.rootTree (extend' a);
+#  extend = a: self.rootTree (extend' a);
 
 #  #TODO rename this
 #  rootTree = root: root // { #TODO / #TODO is this scoped correctly
