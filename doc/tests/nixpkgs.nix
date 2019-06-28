@@ -1,1 +1,1 @@
-import ../../lib/nixpkgs-pinned.nix
+import ../../lib/extern/nixpkgs-pinned.nix

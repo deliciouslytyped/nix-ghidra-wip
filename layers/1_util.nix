@@ -10,6 +10,7 @@ self: super: {
           "support/convertStorage" "support/dumpGhidraThreads" "support/ghidraDebug"
           "support/pythonRun" "support/sleigh"
           ];
+      #TODO look into using modules
       defaultOpts = import ../lib/defaultOpts.nix;
       tracing = false;
       };
