@@ -1,3 +1,4 @@
+# The base Ghidra packages (Ghidra and GhidraDev, ...)
 self: super: {
   jdk = self.nixpkgs.jdk11;
   gradleGen = (self.nixpkgs.gradleGen.override {jdk = self.jdk;}).gradle_latest;

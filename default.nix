@@ -1,2 +1,3 @@
-{callPackage ? (import <nixpkgs> {}).callPackage }:
-  callPackage ./packages.nix {}
+{callPackage ? (import ./lib/nixpkgs-pinned.nix).callPackage }: {
+  ghidra = callPackage ./packages.nix {};
+  }

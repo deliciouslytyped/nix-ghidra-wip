@@ -1,3 +1,4 @@
+# Functions for constructing Ghidra packages
 self: super: {
     config = {
       pkg_path = "lib/ghidra";
