@@ -1,4 +1,5 @@
 # Functions for constructing Ghidra packages
+
 self: super: {
     config = {
       pkg_path = "lib/ghidra";
@@ -10,17 +11,16 @@ self: super: {
           "support/pythonRun" "support/sleigh"
           ];
       defaultOpts = import ../lib/defaultOpts.nix;
+      tracing = false;
       };
 
-    #TODO move to lib
-    tracing = false;
-    trace = str: val:
-      if self.tracing then
-        self.nixpkgs.lib.traceValFn (v: "${str}\n${self.nixpkgs.lib.generators.toPretty {} v}") val
-      else
-        val;
-
     lib = {
+      trace = str: val:
+        if self.config.tracing then
+          self.nixpkgs.lib.traceValFn (v: "${str}\n${self.nixpkgs.lib.generators.toPretty {} v}") val
+        else
+          val;
+
       # nix-shell -p nix-prefetch-github --run "nix-prefetch-github owner repo > ./plugins/json/theplugin.json"
       fetchGitHubJSON = {JSONfile, ...}@args:
         self.nixpkgs.fetchFromGitHub ({ inherit (self.nixpkgs.lib.importJSON JSONfile) owner repo rev sha256; } // (

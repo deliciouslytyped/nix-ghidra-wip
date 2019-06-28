@@ -1,0 +1,4 @@
+ghidra.nix:
+#TODO make a headless jdk deployment with a smaller closure?
+#TODO It may be possible to use symlinkjoin to add plugins if you write the unwrapped launcher script to not use readlink
+#TODO separate out the gradle thing so we dont end up with dependency on this for plugins (?)

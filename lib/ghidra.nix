@@ -1,22 +1,16 @@
-#TODO make a headless jdk deployment with a smaller closure?
-#TODO It may be possible to use symlinkjoin to add plugins if you write the unwrapped launcher script to not use readlink
-#TODO separate out the gradle thing so we dont end up with dependency on this for plugins (?)
-
-# plugins is a list of derivations to symlink into <ghidraroot>/Ghidra/Extensions,
-# this is entirely sufficient for ghidra to operate.
+# plugins is a list of extracted plugin derivations to symlink into <ghidraroot>/Ghidra/Extensions.
+# This is entirely sufficient for ghidra to operate.
 {
   stdenv, fetchurl, unzip, makeWrapper, autoPatchelfHook, # Utilities
   jdk, pam, # Deps
   lib, config, plugins ? [], extraLaunchers ? {}, # Ghidra
-  pkgs #.lib
+  pkgs
   }:
 
 #Recursive let means these two need to be separate
 let
+  inherit (pkgs.lib) concatMapStrings concatStrings mapAttrsToList;
   inherit (lib) jdkWrapper installPlugin unpackPlugin writeCustomLauncher;
-in
-let
-  lib = pkgs.lib;
 in
 
   stdenv.mkDerivation rec {
@@ -54,10 +48,10 @@ in
     postFixup = ''
       mkdir -p -- "$out/bin"
       # Make wrappers
-      ${lib.concatMapStrings (l: jdkWrapper "${config.pkg_path}/${l}" "bin/${builtins.baseNameOf l}") config.launchers}
-      ${lib.concatStrings (lib.mapAttrsToList writeCustomLauncher extraLaunchers)}
+      ${concatMapStrings (l: jdkWrapper "${config.pkg_path}/${l}" "bin/${builtins.baseNameOf l}") config.launchers}
+      ${concatStrings (mapAttrsToList writeCustomLauncher extraLaunchers)}
       # Install plugins
-      ${lib.concatMapStrings (p: installPlugin (unpackPlugin p)) plugins}
+      ${concatMapStrings (p: installPlugin (unpackPlugin p)) plugins}
       '';
 
     meta = with lib; {

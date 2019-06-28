@@ -1,5 +1,7 @@
-{scala, lib}:
+{pkgs, lib}:
   let
+    scala = pkgs.scala_2_11;
+
     # nix-shell -p nix-prefetch-github --run "nix-prefetch-github edmcman ghidra-scala-loader > gotools.json
     src = lib.fetchGitHubJSON { JSONfile = ./json/ghidra-scala-loader.json; };
   in

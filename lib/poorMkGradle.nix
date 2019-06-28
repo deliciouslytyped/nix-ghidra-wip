@@ -1,3 +1,5 @@
+# TODO should be replaced when and if gradle integration with nixpkgs happens
+
 # NOTE This is already partially applied over Ghidra, which is
 # why Ghidra doesn't need to be directly mentioned in a plugin
 # definition, even though they depend on the builder script in
@@ -9,7 +11,6 @@
  
 # based on https://github.com/NixOS/nixpkgs/blob/c62742719bca11070552f5050204c09ba0df14e2/pkgs/tools/security/jd-gui/default.nix
 # per https://github.com/NixOS/nixpkgs/issues/17342
-# TODO should be replaced when and if gradle integration happens
 {stdenv, gradleGen, ghidra, config}:
     name: src: stdenv.mkDerivation {
       name = name + ".zip";

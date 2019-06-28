@@ -1,17 +1,18 @@
 # The strange application order is so that this can be a .lib function
 # (with a self.callPackage inside and partially applied over defaultOpts)
-defaultOpts: { trace, config, pkgs }: { ghidra, args ? defaultOpts.args, debug ? defaultOpts.debug }:
+defaultOpts: { lib, config, pkgs }: { ghidra, args ? defaultOpts.args, debug ? defaultOpts.debug }:
     let
-      inherit (pkgs) lib;
+      inherit (pkgs.lib) optionalString concatMapStrings escapeShellArg;
+      inherit (lib) trace;
       inherit (trace "debug args:" (defaultOpts.debug // debug)) enable suspend listener;
       inherit (trace "args:" (defaultOpts.args // args)) name class maxMemory vmArgs extraArgs enableUserShellArgs;
     in
     let
-      opt = pkgs.lib.optionalString;
       nonEmpty = l: builtins.length l != 0;
       nonEmptyS = s: s != "";
-      withArgs = cmd: args: cmd + (lib.concatMapStrings (s: " ${s}") args);
-      e = lib.escapeShellArg;
+      withArgs = cmd: args: cmd + (concatMapStrings (s: " ${s}") args);
+      opt = optionalString;
+      e = escapeShellArg;
     in
     let
       debugAddrEnv = "DEBUG_ADDRESS=${e listener}"; 
