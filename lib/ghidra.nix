@@ -7,7 +7,6 @@
   pkgs
   }:
 
-#Recursive let means these two need to be separate
 let
   inherit (pkgs.lib) concatMapStrings concatStrings mapAttrsToList;
   inherit (lib) jdkWrapper installPlugin unpackPlugin writeCustomLauncher;
@@ -32,10 +31,6 @@ in
     buildInputs = [
       stdenv.cc.cc.lib
       pam
-      ];
-
-    propagatedBuildInputs = [
-      jdk
       ];
 
     dontStrip = true;
