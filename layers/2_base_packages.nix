@@ -5,6 +5,7 @@ self: super: {
   gradleGen = (self.nixpkgs.gradleGen.override {jdk = self.jdk;}).gradle_latest;
 
   ghidra = self.callPackage ../lib/ghidra.nix {};
+  ghidra-src = self.callPackage ../lib/ghidra-src.nix {};
 
   # For use with `eclipses.eclipseWithPlugins`, see tests/eclipse-00.nix
   ghidraDev = self.nixpkgs.eclipses.plugins.buildEclipseUpdateSite rec {

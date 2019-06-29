@@ -14,11 +14,11 @@ in
 
   stdenv.mkDerivation rec {
     name = "ghidra-${version}-bin";
-    version = "9.0.2";
+    version = "9.0.4";
 
     src = fetchurl {
-      url = "https://ghidra-sre.org/ghidra_9.0.2_PUBLIC_20190403.zip";
-      sha256 = "17wfixab6fspf0kw9hrrx4nhxwqyqj36gncf3iimp7vf4rfddzqh";
+      url = "https://ghidra-sre.org/ghidra_9.0.4_PUBLIC_20190516.zip";
+      sha256 = "1gqqxk57hswwgr97qisqivcfgjdxjipfdshyh4r76dyrfpa0q3d5";
       };
 
     nativeBuildInputs = [
